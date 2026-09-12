@@ -26,6 +26,7 @@ body {
     color: var(--text);
     line-height: 1.6;
     overflow-x: hidden;
+    position: relative;
 }
 
 /* Pharaonic Background Texture */
@@ -37,8 +38,29 @@ body {
     background-size: cover;
     background-position: center;
     opacity: 0.05; 
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* Subtle Pharaonic Side Borders */
+.border-left, .border-right {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    background-image: url('1000356512.jpg');
+    background-size: auto 100%;
+    opacity: 0.15;
     z-index: -1;
     pointer-events: none;
+}
+.border-left {
+    left: 0;
+    border-right: 1px solid rgba(176, 141, 87, 0.2); /* Subtle gold accent */
+}
+.border-right {
+    right: 0;
+    border-left: 1px solid rgba(176, 141, 87, 0.2);
 }
 
 h1, h2, h3, .logo {
@@ -141,7 +163,7 @@ nav {
 
 /* Sections */
 .section {
-    padding: 100px 5%;
+    padding: 100px 8%;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -169,7 +191,7 @@ nav {
     align-items: center;
     justify-content: space-between;
     min-height: 100vh;
-    padding: 100px 5% 0;
+    padding: 100px 8% 0;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -202,18 +224,36 @@ nav {
     gap: 15px;
 }
 
-.hero-image {
+.hero-image-container {
     flex: 1;
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
-.hero-image img {
+.profile-img {
     width: 100%;
-    max-width: 450px;
+    max-width: 400px;
     border-radius: 12px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    border: 1px solid var(--espresso);
+    border: 2px solid var(--gold);
+    position: relative;
+    z-index: 2;
+    object-fit: cover;
+    aspect-ratio: 3/4; /* Maintains a nice portrait ratio */
+}
+
+/* Decorative accent behind the image */
+.img-accent {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    border: 2px solid var(--slate-grey);
+    border-radius: 12px;
+    z-index: 1;
 }
 
 /* About Section */
@@ -358,10 +398,28 @@ nav {
     gap: 10px;
 }
 
+.social-btn svg {
+    transition: fill 0.3s ease;
+}
+
 .social-btn:hover {
     background: var(--gold);
     color: var(--onyx);
     border-color: var(--gold);
+}
+
+.social-btn:hover svg {
+    fill: var(--onyx);
+}
+
+.whatsapp-btn {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.whatsapp-btn:hover {
+    background: var(--gold);
+    color: var(--onyx);
 }
 
 /* Footer */
@@ -386,6 +444,15 @@ footer {
 }
 
 /* Responsive Design */
+@media (max-width: 900px) {
+    .border-left, .border-right {
+        display: none; /* Hide side borders on smaller screens to save space */
+    }
+    .section {
+        padding: 100px 5%;
+    }
+}
+
 @media (max-width: 768px) {
     .hero {
         flex-direction: column-reverse;
@@ -401,6 +468,10 @@ footer {
     }
     .cta-buttons {
         justify-content: center;
+    }
+    .img-accent {
+        top: 10px;
+        right: 15px;
     }
     .nav-links {
         display: none;
